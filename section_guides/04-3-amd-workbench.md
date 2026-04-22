@@ -105,17 +105,7 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 As with AIM deployments, you can monitor the status of your workspace on the Dashboard page. It will show Pending while the resources are being provisioned.
 
 ### Launch the workspace
-Once the workspace is ready, the deployment overlay will display a Launch button. Click it to open your workspace.
-
-For the next steps, you will need to create a Jupyter Notebook:
-
-Click New file from the File menu
-
-Choose the Jupyter notebook file type or create a new file and save it with the file extension “.ipynb”
-
-If you want to save it, make sure it’s saved in your persistent storage directory
-
-From this point forward, all code provided in this blog should be executed within this notebook.
+Once the workspace is ready, the deployment overlay will display a Launch button. Click it to open launch and open your workspace.
 
 ### Retrieve connection details
 To connect to your deployed model, you first need to retrieve its unique API endpoint:
@@ -138,10 +128,11 @@ The window also provides sample code for querying the model in cURL, Python and 
 
 Finally, modify the sample code to send a more specific prompt. Locate the line that defines the user message and update it as shown below:
 
-“content”: “Hello!” to “content”: “What is the capital of Sweden?”
+```“content”: “Hello!”``` to ```“content”: “What is the capital of Sweden?”```
 
 The request should look like this:
 ```
+!pip install requests
 import requests
 
 url = "YOUR_INTERNAL_URL"
@@ -163,11 +154,9 @@ print(result["choices"][0]["message"]["content"])
 ```
 
 ### Run your request
-Since we are using an internal connection, an API key is not required for authentication. You can now execute the code cell containing the Python script. You need to install the ```requests``` library before running the code:
+You can now execute the code cell containing the Python script. You need to install the ```requests``` library before running the code:
 
 ```!pip install requests```
-
-When you run the notebook for the first time, you may be prompted to select a kernel for your notebook. If prompted, install or choose the appropriate Python environment. Once the kernel is active, the notebook will execute the code and display the results.
 
 If the connection is successful, you should receive an answer like the one below. The exact phrasing may vary slightly with each execution, which is expected behavior for large language models:
 
