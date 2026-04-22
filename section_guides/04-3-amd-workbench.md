@@ -39,9 +39,6 @@ AMD AI Workbench is the end-user interface for deploying and interacting with AI
 
 ![Deploy AIM panel with Performance metric dropdown](../images/04-workbench/03-deploy-config-panel.png)
 
-![Performance metric dropdown showing Latency and Throughput options](../images/04-workbench/04-deploy-performance-dropdown.png)
-
-
 6. Click **Deploy**. A confirmation message will appear indicating the workload has started.
 
 <!-- SCREENSHOT: Deployment confirmation notification or toast message -->
@@ -62,14 +59,6 @@ While the model downloads and initializes, you can monitor its deployment status
 2. Observe the status of your new workload
 
 3. Wait for the status to transition from Pending to Running
-
-
-## Interact with the model
-Once your model is successfully deployed, you can interact with it in two primary ways:
-
-* Chat Interface: Use the built-in Chat page within the AI Workbench for direct interactive testing
-
-* API Integration: Programmatically access the model using the AIM’s OpenAI‑compatible API endpoint
 
 ## Interact with the model via the chat interface
 
@@ -92,7 +81,7 @@ Output:
 ## Interact with the model via Jupyter Lab workspace
 From the Workspace page, you can launch pre-configured development workspaces to accelerate experimentation. For example, JupyterLab and VS Code workspaces enable users to harness the power of the cluster with zero configuration on their local machines.
 
-## Deploy your Jupyter Lab workspace
+### Deploy your Jupyter Lab workspace
 Navigate to the Workspaces page, where you will find a catalog of available workspaces:
 
 1. Locate the Jupyter Lab card and click View and deploy. This will open the deployment configuration view where you can customize your workspace before deployment (See Figure 7).
@@ -115,7 +104,7 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 
 As with AIM deployments, you can monitor the status of your workspace on the Dashboard page. It will show Pending while the resources are being provisioned.
 
-## Launch the workspace
+### Launch the workspace
 Once the workspace is ready, the deployment overlay will display a Launch button. Click it to open your workspace.
 
 For the next steps, you will need to create a Jupyter Notebook:
@@ -127,8 +116,6 @@ Choose the Jupyter notebook file type or create a new file and save it with the 
 If you want to save it, make sure it’s saved in your persistent storage directory
 
 From this point forward, all code provided in this blog should be executed within this notebook.
-
-## Connect to the model from the workspace via the OpenAI-compatible API
 
 ### Retrieve connection details
 To connect to your deployed model, you first need to retrieve its unique API endpoint:
