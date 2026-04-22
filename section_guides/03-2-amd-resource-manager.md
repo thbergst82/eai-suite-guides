@@ -17,87 +17,15 @@ AMD Resource Manager provides platform administrators with tools to oversee and 
 
 ------------------------------------------------------------------------
 
-## Setting Up a Project
+## Monitoring Workloads and Resource Utilization
 
-### Step 1 — Navigate to Resource Manager
 
-1. From the **Dashboard**, click **Projects** in the left sidebar
-2. Click the **Create project** button
-3. Enter a project name, an optional description, and select your cluster
-4. Click **Create project**
+1. Navigate to the Project’s Details page by selecting your project, “XXX”, from the Projects page. Your previously deployed AIM should be displayed on the dashboard.
 
-![Projects page with Create project button](../images/03-resource-manager/02-projects-page.png)
+2. To view the resource allocation across the entire cluster rather than just a single project, you can monitor workload utilization for all clusters on the Clusters page. As you can see, in our case there are now multiple running workloads in total. Please note, that this depends on the actual resource usage, and you may see a different amount of running workloads.
 
-![Create project dialog with fields filled in](../images/03-resource-manager/04-create-project-filled.png)
+3. Clicking on a specific cluster, such as the demo-cluster, displays the Cluster Details page. This page provides quota and utilization information for the entire cluster and all associated projects.
 
-> **Expected outcome:** You are redirected to the **Project settings** page for your new project.
-
-------------------------------------------------------------------------
-
-### Step 2 — Adjusting Quota
-
-You should now be on the **Project settings** page with the **Quota** tab active. Quotas ensure fair and shared resource allocation across projects.
-
-Set the resource allocation for your project:
-
-1. **GPUs** — Number of GPU devices
-2. **CPU Cores** — Number of CPU cores
-3. **System Memory** — Memory allocation in GiB
-4. **Ephemeral Disk** — Temporary disk space for workloads
-5. Click **Save changes**
-
-<!-- TODO: Add recommended quota values for this HOL exercise, e.g., "For this lab, set GPUs = 1, CPU Cores = 8, Memory = 32 GiB" -->
-
-![Quota tab with resource values set](../images/03-resource-manager/05-quota-tab.png)
-
-> **Expected outcome:** A confirmation message appears and your quota settings are saved.
-
-------------------------------------------------------------------------
-
-### Step 3 — Attaching Storage & Setting Secrets
-
-Each project requires a storage configuration to download models and run workloads. During installation, a `minio-credentials-fetcher` secret and a default storage configuration are created automatically. You will assign these to your project now.
-
-1. Click the **Secrets** tab
-2. Click **Add project secret** and select **Assign existing secret**
-3. Select **minio-credentials-fetcher** from the **Secret** drop-down menu
-4. Click **Assign secret**
-5. Click **Add project secret** again and select **Create new secret**
-6. Enter a secret name such as `hugging-face-token`
-7. Add a key/value pair (for example, key: `HF_TOKEN`, value: your Hugging Face access token)
-8. Click **Create secret**
-
-> **Why this is needed:** The Hugging Face token is required for accessing gated models and some finetuning workflows in AMD AI Workbench.
-
-![Secrets tab showing Add project secret button and options](../images/03-resource-manager/06-secrets-tab-add-menu.png)
-
-![Assign secret dialog with minio-credentials-fetcher selected](../images/03-resource-manager/07-assign-secret-minio.png)
-
-![Secrets tab confirming minio-credentials-fetcher assigned](../images/03-resource-manager/08-secret-assigned.png)
-
-> **Expected outcome:** Both `minio-credentials-fetcher` and your Hugging Face token secret appear in the project's secrets list.
-
-> **Troubleshooting:** If `minio-credentials-fetcher` does not appear in the drop-down, the platform installation may not have completed successfully. See the [Troubleshooting](./06-5-troubleshooting.md) section.
-
-------------------------------------------------------------------------
-
-### Step 4 — Adding Users to the Project
-
-Users must be added to a project before they can access its resources and run workloads.
-
-1. Click the **Users** tab
-2. Click the **Add Member** button
-3. Select yourself (and any other desired users) from the **Users** drop-down menu
-4. Click **Add to project**
-
-![Users tab showing Add Member button](../images/03-resource-manager/09-users-tab.png)
-
-![Add member dialog with user selected](../images/03-resource-manager/10-add-member-dialog.png)
-
-![Users tab confirming member added](../images/03-resource-manager/11-member-added.png)
-
-> **Expected outcome:** The selected user(s) appear in the project's member list. Your project is now configured and ready to use.
-
-------------------------------------------------------------------------
+4. In addition, by navigating to the Dashboard page you can view high-level quota and utilization information for your projects across all clusters, along with live widgets displaying GPU utilization information.
 
 **Next:** Proceed to [AMD Workbench](./04-3-amd-workbench.md) to deploy a model.

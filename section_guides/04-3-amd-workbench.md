@@ -1,4 +1,4 @@
-# 3. AMD Workbench
+# 1. AMD AI Workbench
 
 AMD AI Workbench is the end-user interface for deploying and interacting with AI models. 
 
@@ -92,7 +92,7 @@ Output:
 ## Interact with the model via Jupyter Lab workspace
 From the Workspace page, you can launch pre-configured development workspaces to accelerate experimentation. For example, JupyterLab and VS Code workspaces enable users to harness the power of the cluster with zero configuration on their local machines.
 
-### Deploy your Jupyter Lab workspace
+## Deploy your Jupyter Lab workspace
 Navigate to the Workspaces page, where you will find a catalog of available workspaces:
 
 1. Locate the Jupyter Lab card and click View and deploy. This will open the deployment configuration view where you can customize your workspace before deployment (See Figure 7).
@@ -103,7 +103,7 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 
     * Container image: Keep the default image. The workspace will automatically pull and run the image upon deployment.
 
-    * Customize resource allocation: Allocate hardware resources using the provided sliders. The following configuration was used to validate this blog:
+    * Customize resource allocation: Allocate hardware resources using the provided sliders. Please use the following configuration:
 
       * GPU: 0
 
@@ -113,166 +113,85 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 
 3. Once you have finalized the configuration, launch the environment by clicking Quick deploy
 
-## Finetuning
+As with AIM deployments, you can monitor the status of your workspace on the Dashboard page. It will show Pending while the resources are being provisioned.
 
+## Launch the workspace
+Once the workspace is ready, the deployment overlay will display a Launch button. Click it to open your workspace.
 
-Finetuning allows you to adapt a base model to domain-specific data.
+For the next steps, you will need to create a Jupyter Notebook:
 
-### Typical Workflow
+Click New file from the File menu
 
-1. **Add Hugging Face token** — Required for accessing gated models and datasets
-![Model card with Deploy option in three-dot menu](../images/04-workbench/model-catalog-name-rm.png)
+Choose the Jupyter notebook file type or create a new file and save it with the file extension “.ipynb”
 
-2. **Navigate to Datasets and upload training data** — In **AI Workbench**, open **Datasets** from the left navigation and click **Upload**.
+If you want to save it, make sure it’s saved in your persistent storage directory
 
-For this lab, please use dataset here: https://github.com/isab8liu-alum/eai-suite-guides/blob/main/dataset/argilla-1.jsonl
+From this point forward, all code provided in this blog should be executed within this notebook.
 
-![Upload a dataset for finetuning](../images/04-workbench/uploading_dataset_finetuning.png)
+## Connect to the model from the workspace via the OpenAI-compatible API
 
-3. **Create the dataset entry** — Enter a dataset name, choose the correct data type, optionally add a description, then upload your `.jsonl` file and click **Upload**.
-4. **Go to Custom Models** — Open **Models** and switch to the **Custom Models** tab.
+### Retrieve connection details
+To connect to your deployed model, you first need to retrieve its unique API endpoint:
 
-![Custom Models view in AI Workbench](../images/04-workbench/workbench_custom_models_view.png)
+1. Navigate to the Dashboard page
 
-5. **Start fine-tuning** — Click **Fine-tune model**, select the base model and uploaded dataset, configure training parameters, then click **Start training**.
+2. Select the deployed model and click on the 3 dots
 
-![Create fine-tuned model panel](../images/04-workbench/finetune_model_menu.png)
+3. Select **Connect to model**
 
-<!-- SCREENSHOT: Finetuning section of the UI (once steps are documented) -->
+This will open a dialog window displaying the essential connection details, specifically the External URL (for connections outside the platform) and the Internal URL (for connections inside the platform, such as a workspace). See Figure 9 for reference.
 
-------------------------------------------------------------------------
+The window also provides sample code for querying the model in cURL, Python and Javascript format. We will use the Python snippet to connect from our Jupyter Lan notebook:
 
+1. Since our notebook is running inside the platform, select the Internal URL
 
-## VSCode Workspace (vLLM Benchmarking)
+2. Choose the Python tab to view the corresponding Python code snippet
 
-This section demonstrates how to use the built-in Visual Studio Code workspace to benchmark a deployed model using the `vllm bench` tool.
-Prereq: minio credentials must be added to project secrets.
+3. Click the Copy icon in the top-right corner and paste the code into a new cell in your Jupyter notebook
 
-### Launch the VSCode Workspace
+Finally, modify the sample code to send a more specific prompt. Locate the line that defines the user message and update it as shown below:
 
-1. Navigate to **Workspaces** in the left sidebar
-2. Click **View and deploy** next to the Visual Studio Code workspace entry. Click the **Customize Resource Allocation** and set the allocated GPUs=0, because we won't need GPUs for the workspace deployment.
+“content”: “Hello!” to “content”: “What is the capital of Sweden?”
 
-![Workspaces view showing Custom Resource Allocation](../images/04-workbench/workspace-deploy-custom-resource-allocation.png)
-
-3. Once deployed, click the **Launch** button to open VSCode in your browser
-
-<!-- SCREENSHOT: Workspaces page — showing the "View and deploy" and "Launch" buttons -->
-![Workspaces view showing VSCode](../images/04-workbench/workspaces_view.png)
-<!-- SCREENSHOT: VSCode workspace open in the browser -->
-
-### Get the Model Endpoint
-
-Before running the benchmark, retrieve the internal endpoint of your deployed model:
-
-1. Navigate to the **Models** tab
-2. On the deployed model card, click the **three-dot menu (⋮)** and select **Connect**
-3. Copy the **Internal URL** — this is the endpoint used within the cluster
-
-   > If accessing from outside the cluster (e.g., from your local machine), use the **External URL** together with an API key instead.
-
-<!-- SCREENSHOT: Connect dialog showing Internal URL and External URL fields -->
-
-### Run the Benchmark
-
-Create a new bash script file to configure and run the benchmark, and save as "bench_serve.sh". Replace the placeholder values with those for your deployment:
-
-![Benchmark serve script in VSCode terminal](../images/04-workbench/bench_serve.png)
-
-```bash
-NUM_PROMPTS= 20 #<number-of-prompts>
-CONC=$((NUM_PROMPTS * 10))   # Sets concurrency to 10x the prompt count — adjust as needed
-INPUT_LEN=1024 #<input-token-length> #
-OUTPUT_LEN=1024 #<output-token-length>
-BASE_URL="<your-internal-url>"
-ENDPOINT="/v1/chat/completions"
-MODEL="openai/gpt-oss-12b" #USE A NON GATED MODEL TO AVOID Hugging face TOKEN ISSUES
-
-vllm bench serve \
-  --ignore-eos \
-  --backend openai-chat \
-  --base-url "${BASE_URL}" \
-  --endpoint "${ENDPOINT}" \
-  --model "${MODEL}" \
-  --dataset-name random \
-  --random-input-len ${INPUT_LEN} \
-  --random-output-len ${OUTPUT_LEN} \
-  --num-prompts ${NUM_PROMPTS} \
-  --max-concurrency ${CONC} \
-  --trust-remote-code
+The request should look like this:
 ```
-for example, it would look like:
+import requests
 
-```bash
-NUM_PROMPTS=20
-CONC=$((NUM_PROMPTS * 10))   # Sets concurrency to 10x the prompt count — adjust as needed
-INPUT_LEN=1024
-OUTPUT_LEN=1024
-BASE_URL="http://mw-f0709683-predictor.demo.svc.cluster.local"
-ENDPOINT="/v1/chat/completions"
-MODEL="openai/gpt-oss-120b"
+url = "YOUR_INTERNAL_URL"
+headers = {
+    "Authorization": "Bearer UPDATE_YOUR_API_KEY_HERE",
+    "Content-Type": "application/json"
+}
+data = {
+    "model": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+    "messages": [
+        {"role": "user", "content": "What is the capital of Sweden?"}
+    ],
+    "stream": False
+}
 
-vllm bench serve \
-  --ignore-eos \
-  --backend openai-chat \
-  --base-url "${BASE_URL}" \
-  --endpoint "${ENDPOINT}" \
-  --model "${MODEL}" \
-  --dataset-name random \
-  --random-input-len ${INPUT_LEN} \
-  --random-output-len ${OUTPUT_LEN} \
-  --num-prompts ${NUM_PROMPTS} \
-  --max-concurrency ${CONC} \
-  --trust-remote-code
-  ```
-<!-- TODO: Provide recommended values for this HOL, e.g.:
-     NUM_PROMPTS=100, INPUT_LEN=512, OUTPUT_LEN=128, MODEL="<name of model deployed above>"
-     Optionally, provide this as a pre-written bash script participants can copy. -->
-
-<!-- SCREENSHOT: VSCode terminal showing benchmark output -->
-
-Open a terminal in the VSCode workspace and run the following setup commands:
-
-```bash
-python --version          # Verify Python is available
-
-python -m venv venv       # Create a virtual environment
-source venv/bin/activate  # Activate it
-
-pip install vllm          # Install the vllm benchmarking tool
-
-chmod +x /workload/bench_serve.sh
-cd /workload
- ./bench_serve.sh 
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(result["choices"][0]["message"]["content"])
 ```
 
+### Run your request
+Since we are using an internal connection, an API key is not required for authentication. You can now execute the code cell containing the Python script. You need to install the ```requests``` library before running the code:
 
-### Understanding Benchmark Output
+```!pip install requests```
 
-| Metric | Meaning |
-|--------|---------|
-| **Throughput** | Total tokens processed per second across all concurrent requests |
-| **TTFT** | Time to First Token — how quickly the model starts responding |
-| **Latency** | End-to-end time per request |
-| **Tokens/sec** | Per-request token generation rate |
+When you run the notebook for the first time, you may be prompted to select a kernel for your notebook. If prompted, install or choose the appropriate Python environment. Once the kernel is active, the notebook will execute the code and display the results.
 
-------------------------------------------------------------------------
+If the connection is successful, you should receive an answer like the one below. The exact phrasing may vary slightly with each execution, which is expected behavior for large language models:
 
-## ComfyUI
+```
+The capital of Sweden is Stockholm. It is located on the eastern coast of the country, where Lake Mälaren meets the Baltic Sea. Stockholm is known for its beautiful archipelago, historic sites like the Royal Palace, and vibrant culture.
+```
+### Monitor inference endpoint
+In this example, we are connecting to the model to verify the setup; however, if this workload was running in production—serving one or multiple products—monitoring the inference endpoint logs and metrics would be essential for maintaining reliability, detecting regressions, and planning capacity.
 
-ComfyUI provides a visual node-based interface for building and running AI pipelines, including image generation workflows.
+To monitor your inference endpoint, open the Dashboard page, select the workload (use the three dots on the far right) and choose “Open details”.
 
-1. Navigate to **Workspaces** in AI Workbench and locate the **ComfyUI Text-to-Image** workspace.
-
-![Workspaces view showing ComfyUI Text-to-Image](../images/04-workbench/workspaces_view.png)
-
-2. Click **View and deploy**, then allocate the appropriate number of GPUs based on workload demand.
-3. After deployment is ready, click **Launch**.
-4. In ComfyUI, select one of the available text-to-image templates.
-5. Enter a text prompt and run the workflow to generate images.
-
-<!-- SCREENSHOT: ComfyUI interface showing the node graph editor -->
-
-------------------------------------------------------------------------
+The details’ view lets you inspect and review inference metrics over time such as time‑to‑first‑token, request count, tokens generated and other indicators. It also shows workload metadata such as resource utilization, AIM build/version, and configuration settings.
 
 **Next:** Proceed to [Blueprints](./05-4-blueprints.md) to deploy a solution blueprint.
