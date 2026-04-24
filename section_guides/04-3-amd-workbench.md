@@ -170,4 +170,4 @@ To monitor your inference endpoint, open the Dashboard page, select the workload
 
 The details’ view lets you inspect and review inference metrics over time such as time‑to‑first‑token, request count, tokens generated and other indicators. It also shows workload metadata such as resource utilization, AIM build/version, and configuration settings.
 
-**Next:** Proceed to [Blueprints](./05-4-blueprints.md) to deploy a solution blueprint.
+**Next:** Proceed to [AMD Resource Manager](./03-2-amd-resource-manager.md) to explore the AMD Resource Manager.

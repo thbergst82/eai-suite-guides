@@ -28,4 +28,3 @@ AMD Resource Manager provides platform administrators with tools to oversee and 
 
 4. In addition, by navigating to the Dashboard page you can view high-level quota and utilization information for your projects across all clusters, along with live widgets displaying GPU utilization information.
 
-**Next:** Proceed to [AMD Workbench](./04-3-amd-workbench.md) to deploy a model.
