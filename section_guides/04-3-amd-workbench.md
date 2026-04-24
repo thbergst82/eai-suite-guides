@@ -1,6 +1,6 @@
 # 1. AMD AI Workbench
 
-AMD AI Workbench is the end-user interface for deploying and interacting with AI models. 
+AMD AI Workbench is the end-user interface for deploying and interacting with AI models.
 
 1. Navigate to the AIWB URL.
 

@@ -21,6 +21,11 @@ This guide walks participants through configuring and using the **AMD Enterprise
 
 - AMD Developer Cloud access (provided for your lab session)
 - Basic command-line and coding knowledge
+- Shell access (PowerShell, bash, zsh) for running commands
+- WSL environment (for Windows laptops)
+- kubectl installed and in PATH
+- Helm installed
+- Browser (e.g., Chrome, Firefox, Edge)
 
 ------------------------------------------------------------------------
 
@@ -30,9 +35,9 @@ Work through the sections in order. Each section builds on the previous one.
 
 | # | Section | Description |
 |---|---------|-------------|
-| 1 | [AMD Workbench](./04-3-amd-workbench.md) | Deploy AI models, run benchmarks, and explore workspaces |
-| 2 | [AMD Resource Manager](./03-2-amd-resource-manager.md) | Create a project, configure quotas, attach storage, and add users |
-| 3 | [Blueprints](./05-4-blueprints.md) | Deploy solution blueprints using Helm |
+| 1 | [AMD Workbench (HOL)](./04-3-amd-workbench.md) | Deploy AI models, connect to models, and explore workspaces |
+| 2 | [AMD Resource Manager (HOL)](./03-2-amd-resource-manager.md) | Explore GPU utilization metrics |
+| 3 | [Team challenge - Deploy and Customize AMD Solution Blueprints](./05-4-blueprints.md) | Deploy and Customize AMD Solution Blueprints |
 | 4 | [Troubleshooting](./06-5-troubleshooting.md) | Common issues and resolutions |
 | 5 | [Appendix](./07-appendix.md) | Reference commands, glossary, and cleanup |
 
