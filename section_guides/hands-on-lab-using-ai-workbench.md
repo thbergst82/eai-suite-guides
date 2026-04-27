@@ -1,12 +1,27 @@
-# 1. AMD AI Workbench
+# 1. Hands-on lab using the AMD AI Workbench
 
-AMD AI Workbench is the end-user interface for deploying and interacting with AI models.
+This guide walks participants through using the **AMD Enterprise AI Suite** on a pre-provisioned environment. The environment has already been installed — you will begin directly with AI model deployment on AMD AI Workbench.
+
+In this hands-on lab session we will complete the following tasks:
+
+- How to deploy an AI Model (AIM) and use the AMD AI Workbench interface to interact with it
+- How to create and access a VS Code workspace within AMD AI Workbench
+- How to connect to the deployed AIM from the AI workspace via the OpenAI-compatible API
+- Experiment with the deployed AIM and AI workspace to test model capabilities
+
+## Accessing the Environment
+
+Your lab URL and credentials are provided in the **course handout** distributed at the start of the session.
 
 1. Navigate to the AIWB URL.
 
 2. Log in with the EAI Suite credentials. Ensure you are working within the project you created in the previous section.
 
-<!-- SCREENSHOT: AMD AI Workbench landing page after login, showing the main navigation -->
+## AMD AI Workbench
+
+AMD AI Workbench is the end-user interface for deploying and interacting with AI models.
+
+In this session, you will learn how to use AMD AI Workbench, an easy to use graphical user interface (GUI) for running and managing AI workloads. It’s part of the AMD Enterprise AI Suite, a full-stack solution for developing, deploying and running AI workloads on a Kubernetes platform designed to support AMD compute. AMD AI Workbench is designed to offer AI developers accelerated end-to-end AI development, from experimentation to production deployment.
 
 ------------------------------------------------------------------------
 
@@ -203,7 +218,7 @@ We will now walk through a simplified implementation of these steps without deta
 - [HPC-Agent-RAG](https://rocm.blogs.amd.com/artificial-intelligence/hpc-agent-rag/README.html)
 - [Retrieval Augmented Generation (RAG) using LlamaIndex](https://rocm.blogs.amd.com/artificial-intelligence/rag-llamaindex/README.html#retrieval-augmented-generation-rag-using-llamaindex)
 
-#### Dependencies
+### Dependencies
 
 First, install the required dependencies inside your notebook:
 
@@ -218,7 +233,7 @@ import requests
 import chromadb
 ```
 
-#### Submit a query
+### Submit a query
 
 We will now create a reusable function to query our deployed model. This function will build upon the code from the previous section but will also incorporate a system prompt to guide the model's behavior:
 
@@ -267,7 +282,7 @@ As expected, the model correctly identifies that it does not have access to this
 I don’t have access to real-time sales data or specific databases, so I can’t provide the 2024 sales numbers for Product ID 456. To get this information, you might need to check your company’s internal sales reports, inventory management system, or contact the relevant department (e.g., sales, finance, or operations). If you have access to a CRM or ERP system, you could also look it up there.
 ```
 
-#### Create a vector database
+### Create a vector database
 
 To enable the model to answer questions about our fictional products, we must provide it with the relevant information. This is accomplished by augmenting the prompt with context retrieved from a knowledge base. For this purpose, we will store our fictional product data in a vector database using [Chroma](https://docs.trychroma.com/docs/overview/introduction) (an open‑source AI application database). The process is as follows:
 
@@ -293,7 +308,7 @@ ChromaDB client initialized. Collection 'simple_rag' ready.
 Items in collection: 0
 ```
 
-#### Add example documents to chroma
+### Add example documents to chroma
 
 Now, let's populate our vector database with some sample data. In a real-world application, you would typically source and chunk content from your organization’s knowledge bases, such as internal documents or other repositories. However, since this is a simple example, we will use a few simple text strings representing product information.
 
@@ -355,7 +370,7 @@ Product ID 456 - Sales numbers 2024: SEK 503m
 
 Feel free to experiment by adding more documents to your collection or by trying different queries to see how the retrieval works.
 
-#### Augment and generate
+### Augment and generate
 
 We will now combine the retrieval and generation steps to complete our RAG pipeline. The following function orchestrates this process by first querying the vector database for relevant context and then using that context to build an augmented prompt.
 
@@ -394,3 +409,6 @@ The answer is now accurate, as the model has received the domain specific inform
 Model answer:
 The 2024 sales numbers for Product ID 456 are SEK 503 million
 ```
+## Summary
+
+In this hands-on lab session, you have completed the practical steps for deploying and managing AI workloads using AMD AI Workbench. We began by deploying an AMD Inference Microservice (AIM) for optimized inference, verifying its functionality directly through the Chat UI. Following this, we deployed a workspace to facilitate hands-on experimentation with the AIM inference endpoint within the platform.
