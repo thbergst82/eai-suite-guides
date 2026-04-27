@@ -81,9 +81,30 @@ To interact with your model, follow these steps:
 
 4. Review the response in the chat window and refine your prompt or parameters as needed to achieve the desired result
 
-For example, you can submit a simple prompt like, “Can you create an itinerary for my visit to Paris during 7 days” and then observe how modifying the generation parameters affects the detail and style of the answer.
+For example, you can submit a simple prompt like, “What is the capital of Sweden?” and then observe how modifying the generation parameters affects the detail and style of the answer.
 
 Output:
+
+```text
+The capital of Sweden is Stockholm. It is located on the eastern coast of Sweden, where Lake Mälaren meets the Baltic Sea. Stockholm is known for its beautiful archipelago, historic sites like the Royal Palace, and vibrant cultural scene. It is also the largest city in Sweden.
+```
+
+![Chat with the model directly in the Workbench interface.](../images/04-workbench/workbench_chat.png)
+
+
+The Chat interface also includes a **Compare** mode. This feature sends the same prompt to two models (or the same model with different settings) and displays their responses side‑by‑side, making it easy to evaluate differences in responses, accuracy, tone, and reasoning. Typical use cases include comparing a base model against its fine-tuned version or testing how different system prompts and generation parameters affect a single model's behavior.
+
+Let's demonstrate this feature by comparing our deployed model against itself, but with a modified system prompt:
+
+1. Click the **Compare** toggle at the top of the Chat page to activate the dual-panel view
+2. In the selection box ("Select model"), choose your deployed model
+3. For the model on the right, open its settings panel and change the **System Prompt** to the following:
+    - *"You are a helpful AI model that always provides happy and cheerful answers."*
+4. Enter the prompt *"What is the capital of Sweden?"* and submit it
+5. Observe how the two models provide different responses with one delivering a standard factual answer and the other adopting a cheerful persona (See Figure below)
+
+![Compare models in chat](../images/04-workbench/workbench_chat_compare.png)
+
 
 ## Interact with the model via Jupyter Lab workspace
 From the Workspace page, you can launch pre-configured development workspaces to accelerate experimentation. For example, JupyterLab and VS Code workspaces enable users to harness the power of the cluster with zero configuration on their local machines.
@@ -99,9 +120,9 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 
     * Container image: Keep the default image. The workspace will automatically pull and run the image upon deployment.
 
-    * Customize resource allocation: Allocate hardware resources using the provided sliders. Please use the following configuration:
+    * Use the default configuration:
 
-      * GPU: 0
+      * GPU: 1
 
       * CPU: 8 cores
 
