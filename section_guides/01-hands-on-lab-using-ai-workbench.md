@@ -33,11 +33,17 @@ In this session, you will learn how to use AMD AI Workbench, an easy to use grap
 
 1. Navigate to the **Models** tab to access the AIM catalog
 2. Select **GPT OSS 20B** model and click the **three-dot menu (⋮)** in the bottom-right corner of the model card
-3. Select **Deploy**
+3. Select **Deploy**. Use the default settings.
 
-![Model card with Deploy option in three-dot menu](../images/04-workbench/model-catalog-name-rm.png)
+![Deploy AIM panel with Performance metric dropdown](../images/04-workbench/03-deploy-config-panel.png)
 
-4. Configure the **Deployment Settings**:
+4. Click **Deploy**. A confirmation message will appear indicating the workload has started.
+
+<!-- SCREENSHOT: Deployment confirmation notification or toast message -->
+
+5. **Wait for the model to become ready.**. The deployment typically takes around 5 minutes for the GPT-OSS 20B model depending on network speed and cluster load. Navigate to **Workloads** to monitor deployment status. The model is ready when its status shows **Running**.
+
+- See details about the **Deployment Settings**:
 
    - **Performance metric** — Select the optimization target from the dropdown:
 
@@ -47,20 +53,6 @@ In this session, you will learn how to use AMD AI Workbench, an easy to use grap
      | **Throughput** | When maximizing sustained requests/second is the priority |
 
    - **Unoptimized deployment** — Leave this off for standard deployments. Toggle **Allow** only when deploying to hardware the AIM is not specifically optimized for. 
-
-   <!-- TODO: Specify which performance metric to select for this HOL exercise -->
-
-<!-- SCREENSHOT: Deployment config panel showing Performance metric dropdown open with Latency and Throughput options -->
-
-![Deploy AIM panel with Performance metric dropdown](../images/04-workbench/03-deploy-config-panel.png)
-
-6. Click **Deploy**. A confirmation message will appear indicating the workload has started.
-
-<!-- SCREENSHOT: Deployment confirmation notification or toast message -->
-
-7. **Wait for the model to become ready.** Navigate to **Workloads** to monitor deployment status. The model is ready when its status shows **Running**.
-
-   > Deployment typically takes <!-- TODO: fill in approximate time, e.g., "3–5 minutes" --> depending on model size and cluster load.
 
 <!-- SCREENSHOT: Workloads list view showing the deployed model with "Running" status -->
 
