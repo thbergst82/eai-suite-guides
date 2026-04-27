@@ -27,9 +27,8 @@ Work through the sections in order. Each section builds on the previous one.
 
 | # | Section | Description |
 |---|---------|-------------|
-| 1 | [AMD Workbench (HOL)](./04-3-amd-workbench.md) | Deploy AI models, connect to models, and explore workspaces |
-| 2 | [AMD Resource Manager (HOL)](./03-2-amd-resource-manager.md) | Explore GPU utilization metrics |
-| 3 | [Team challenge - Deploy and Customize AMD Solution Blueprints](./05-4-blueprints.md) | Deploy and Customize AMD Solution Blueprints |
+| 1 | [AMD Workbench (Hands-on lab)](./04-3-amd-workbench.md) | Deploy AI models, connect to models, and explore workspaces |
+| 2 | [Team challenge - Deploy and Customize AMD Solution Blueprints](./05-4-blueprints.md) | Deploy and Customize AMD Solution Blueprints |
 | 4 | [Appendix](./07-appendix.md) | Reference commands, glossary, and cleanup |
 
 ------------------------------------------------------------------------
