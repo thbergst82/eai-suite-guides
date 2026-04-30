@@ -5,7 +5,7 @@ This guide walks participants through using the **AMD Enterprise AI Suite** on a
 In this hands-on lab session we will complete the following tasks:
 
 - How to deploy an AI Model (AIM) and use the AMD AI Workbench interface to interact with it
-- How to create and access a VS Code workspace within AMD AI Workbench
+- How to create and access a Jupyter Lab workspace within AMD AI Workbench
 - How to connect to the deployed AIM from the AI workspace via the OpenAI-compatible API
 - Experiment with the deployed AIM and AI workspace to test model capabilities
 
@@ -17,22 +17,14 @@ Your lab URL and credentials are provided in the **course handout** distributed 
 
 2. Log in with the EAI Suite credentials. Ensure you are working within the project you created in the previous section.
 
-## AMD AI Workbench
-
-AMD AI Workbench is the end-user interface for deploying and interacting with AI models.
-
-In this session, you will learn how to use AMD AI Workbench, an easy to use graphical user interface (GUI) for running and managing AI workloads. It’s part of the AMD Enterprise AI Suite, a full-stack solution for developing, deploying and running AI workloads on a Kubernetes platform designed to support AMD compute. AMD AI Workbench is designed to offer AI developers accelerated end-to-end AI development, from experimentation to production deployment.
-
 ------------------------------------------------------------------------
 
 ## Deploy an AI Model (AIM)
 
-> **Note:** You are in the **AMD AI Workbench** interface for this section. Ensure you have selected the correct project before proceeding.
-
 ![AI Workbench — AIM catalog](../images/04-workbench/model-catalog-name-rm.png)
 
 1. Navigate to the **Models** tab to access the AIM catalog
-2. Select **GPT OSS 20B** model and click the **three-dot menu (⋮)** in the bottom-right corner of the model card
+2. Select **GPT OSS 20B** model in the AIM catalog (you need to scroll down on the page)
 3. Select **Deploy**. Use the default settings.
 
 ![Deploy AIM panel with Performance metric dropdown](../images/04-workbench/03-deploy-config-panel.png)
@@ -41,31 +33,19 @@ In this session, you will learn how to use AMD AI Workbench, an easy to use grap
 
 <!-- SCREENSHOT: Deployment confirmation notification or toast message -->
 
-5. **Wait for the model to become ready.**. The deployment typically takes around 5 minutes for the GPT-OSS 20B model depending on network speed and cluster load. Navigate to **Workloads** to monitor deployment status. The model is ready when its status shows **Running**.
-
-- See details about the **Deployment Settings**:
-
-   - **Performance metric** — Select the optimization target from the dropdown:
-
-     | Option | When to use |
-     |--------|-------------|
-     | **Latency** | When minimizing response time per request is the priority |
-     | **Throughput** | When maximizing sustained requests/second is the priority |
-
-   - **Unoptimized deployment** — Leave this off for standard deployments. Toggle **Allow** only when deploying to hardware the AIM is not specifically optimized for. 
-
-<!-- SCREENSHOT: Workloads list view showing the deployed model with "Running" status -->
-
 ------------------------------------------------------------------------
 
 ## Monitor the deployment
 While the model downloads and initializes, you can monitor its deployment status:
 
-1. Navigate to either the Deployed Models tab (on the Models page) or the Dasboard page
+1. Navigate to the Dasboard page
 
 2. Observe the status of your new workload
 
-3. Wait for the status to transition from Pending to Running
+3. Wait for the status to transition from Pending to Running.
+    - The deployment typically takes around 3-5 minutes for the GPT-OSS 20B model depending on network speed and cluster load.
+    - You can also check the progress from the logs (click on the three dots on the workload, and select **View logs**)
+    - **Note**: Hit refresh on the browser to update the status in case the model is still pending after 5 minutes.
 
 ## Interact with the model via the chat interface
 
@@ -73,24 +53,18 @@ Once your model is successfully deployed, you can interact with it through the c
 
 To interact with your model, follow these steps:
 
-1. Navigate to the Deployed Models tab, pick your model and click Chat with model, or open the Chat page directly from the main navigation menu and then select your model
+1. On the Dashboard page, select the 3 dots icon on your model row in the Worloads table
+
+2. Select Chat with model, or open the Chat page directly from the main navigation menu and then select your model
 
 2. Enter your prompt in the chat box and submit it to the model
 
-3. Experiment with the model’s output by adjusting generation parameters (see Figure 5 below). Access these controls, such as temperature, by clicking the settings toggle in the upper-right corner.
-
-4. Review the response in the chat window and refine your prompt or parameters as needed to achieve the desired result
-
-For example, you can submit a simple prompt like, “What is the capital of Sweden?” and then observe how modifying the generation parameters affects the detail and style of the answer.
-
-Output:
-
-```text
-The capital of Sweden is Stockholm. It is located on the eastern coast of Sweden, where Lake Mälaren meets the Baltic Sea. Stockholm is known for its beautiful archipelago, historic sites like the Royal Palace, and vibrant cultural scene. It is also the largest city in Sweden.
-```
+3. Review the response in the chat window and refine your prompt or parameters as needed to achieve the desired result
 
 ![Chat with the model directly in the Workbench interface.](../images/04-workbench/workbench_chat.png)
 
+
+For example, you can submit a simple prompt like, *“Create a 3-day travel itinerary for a family visiting Dublin, focusing on historical sites and kid-friendly activities. Organize the output by day, time, and location.”*
 
 The Chat interface also includes a **Compare** mode. This feature sends the same prompt to two models (or the same model with different settings) and displays their responses side‑by‑side, making it easy to evaluate differences in responses, accuracy, tone, and reasoning. Typical use cases include comparing a base model against its fine-tuned version or testing how different system prompts and generation parameters affect a single model's behavior.
 
@@ -99,12 +73,9 @@ Let's demonstrate this feature by comparing our deployed model against itself, b
 1. Click the **Compare** toggle at the top of the Chat page to activate the dual-panel view
 2. In the selection box ("Select model"), choose your deployed model
 3. For the model on the right, open its settings panel and change the **System Prompt** to the following:
-    - *"You are a helpful AI model that always provides happy and cheerful answers."*
-4. Enter the prompt *"What is the capital of Sweden?"* and submit it
-5. Observe how the two models provide different responses with one delivering a standard factual answer and the other adopting a cheerful persona (See Figure below)
-
-![Compare models in chat](../images/04-workbench/workbench_chat_compare.png)
-
+    - *"You are a helpful AI model that answers in a very cheerful tone with long answers"*
+4. Enter the prompt *"Create a 3-day travel itinerary for a family visiting Dublin, focusing on historical sites and kid-friendly activities. Organize the output by day, time, and location."* and submit it
+5. Observe how the two models provide different responses with one delivering a standard factual answer and the other adopting a cheerful persona
 
 ## Interact with the model via Jupyter Lab workspace
 From the Workspace page, you can launch pre-configured development workspaces to accelerate experimentation. For example, JupyterLab and VS Code workspaces enable users to harness the power of the cluster with zero configuration on their local machines.
@@ -120,27 +91,30 @@ Navigate to the Workspaces page, where you will find a catalog of available work
 
     * Container image: Keep the default image. The workspace will automatically pull and run the image upon deployment.
 
-    * Use the default configuration:
+    * Select **Customize resource allocation** to deploy without GPUs. Specify the following values:
 
-      * GPU: 1
+      * GPU: 0
 
       * CPU: 8 cores
 
       * RAM: 32 GB
+
+![Customize resource allocation](../images/04-workbench/workspace-deploy-custom-resource-allocation.png)
+
 
 3. Once you have finalized the configuration, launch the environment by clicking Quick deploy
 
 As with AIM deployments, you can monitor the status of your workspace on the Dashboard page. It will show Pending while the resources are being provisioned.
 
 ### Launch the workspace
-Once the workspace is ready, the deployment overlay will display a Launch button. Click it to open launch and open your workspace.
+Once the workspace is ready, the deployment overlay will display a Launch button on the Workspaces page. Click it to launch and open your workspace.
 
 ### Retrieve connection details
 To connect to your deployed model, you first need to retrieve its unique API endpoint:
 
 1. Navigate to the Dashboard page
 
-2. Select the deployed model and click on the 3 dots
+2. Select the deployed model (gpt-oss-20B) and click on the 3 dots
 
 3. Select **Connect to model**
 
@@ -150,18 +124,23 @@ This will open a dialog window displaying the essential connection details, spec
 
 The window also provides sample code for querying the model in cURL, Python and Javascript format. We will use the Python snippet to connect from our Jupyter Lan notebook:
 
-1. Since our notebook is running inside the platform, select the Internal URL
+1. Since our notebook is running inside the platform, under the **CODE SNIPPET** section, click the **Use internal URL** toggle
 
-2. Choose the Python tab to view the corresponding Python code snippet
+2. Select the Python tab to view the corresponding Python code snippet
 
 3. Click the Copy icon in the top-right corner and paste the code into a new cell in your Jupyter notebook
+
+### Run your request
+You need to install the ```requests``` library before running the code. Please copy the following line as the first row in the cell:
+
+```!pip install requests```
 
 Finally, modify the sample code to send a more specific prompt. Locate the line that defines the user message and update it as shown below:
 
 ```“content”: “Hello!”``` to ```“content”: “What is the capital of Sweden?”```
 
 The request should look like this:
-```
+```python
 !pip install requests
 import requests
 
@@ -183,15 +162,12 @@ result = response.json()
 print(result["choices"][0]["message"]["content"])
 ```
 
-### Run your request
-You can now execute the code cell containing the Python script. You need to install the ```requests``` library before running the code:
 
-```!pip install requests```
 
 If the connection is successful, you should receive an answer like the one below. The exact phrasing may vary slightly with each execution, which is expected behavior for large language models:
 
 ```
-The capital of Sweden is Stockholm. It is located on the eastern coast of the country, where Lake Mälaren meets the Baltic Sea. Stockholm is known for its beautiful archipelago, historic sites like the Royal Palace, and vibrant culture.
+The capital of Sweden is Stockholm.
 ```
 ### Monitor inference endpoint
 In this example, we are connecting to the model to verify the setup; however, if this workload was running in production—serving one or multiple products—monitoring the inference endpoint logs and metrics would be essential for maintaining reliability, detecting regressions, and planning capacity.
@@ -214,7 +190,7 @@ Now that you’ve successfully connected to the model, it’s time to **experime
 
 To demonstrate how you can experiment with your deployed models within the workspace, we will implement a **simple RAG pipeline** using **ChromaDB**. The goal is to enable the model to answer questions about custom data, in this case fictional products that were not part of its original training set.
 
-Please continue to use the same VS Code notebook as before.
+Please continue to use the same Jupyter Lab notebook as before.
 
 ### RAG
 
