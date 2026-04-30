@@ -57,14 +57,11 @@ To interact with your model, follow these steps:
 
 2. Select Chat with model, or open the Chat page directly from the main navigation menu and then select your model
 
-2. Enter your prompt in the chat box and submit it to the model
+3. Enter your prompt in the chat box and submit it to the model. For example, you can submit a prompt like, *“Create a 3-day travel itinerary for a family visiting Dublin, focusing on historical sites and kid-friendly activities. Organize the output by day, time, and location.”*
 
-3. Review the response in the chat window and refine your prompt or parameters as needed to achieve the desired result
+4. Review the response in the chat window and refine your prompt or parameters as needed to achieve the desired result (see Figure below)
 
 ![Chat with the model directly in the Workbench interface.](../images/04-workbench/workbench_chat.png)
-
-
-For example, you can submit a simple prompt like, *“Create a 3-day travel itinerary for a family visiting Dublin, focusing on historical sites and kid-friendly activities. Organize the output by day, time, and location.”*
 
 The Chat interface also includes a **Compare** mode. This feature sends the same prompt to two models (or the same model with different settings) and displays their responses side‑by‑side, making it easy to evaluate differences in responses, accuracy, tone, and reasoning. Typical use cases include comparing a base model against its fine-tuned version or testing how different system prompts and generation parameters affect a single model's behavior.
 
@@ -81,7 +78,7 @@ Let's demonstrate this feature by comparing our deployed model against itself, b
 From the Workspace page, you can launch pre-configured development workspaces to accelerate experimentation. For example, JupyterLab and VS Code workspaces enable users to harness the power of the cluster with zero configuration on their local machines.
 
 ### Deploy your Jupyter Lab workspace
-Navigate to the Workspaces page, where you will find a catalog of available workspaces:
+In this lab we will deploy a Jupyter Lab workspace. Navigate to the Workspaces page, where you will find a catalog of available workspaces:
 
 1. Locate the Jupyter Lab card and click View and deploy. This will open the deployment configuration view where you can customize your workspace before deployment (See Figure 7).
 
