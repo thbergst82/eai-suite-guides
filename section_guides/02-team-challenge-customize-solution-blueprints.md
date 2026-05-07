@@ -10,7 +10,7 @@ In this session we will deploy and customize an AI application using the AMD Sol
 - WSL environment (for Windows laptops)
 - kubectl installed and in PATH
 - Helm installed
-- kubeconfig file in order to connect to the Kubernetes cluster
+- [kubeconfig file](./dublin_digital_ocean) in order to connect to the Kubernetes cluster
 
 ## User guide
 For this session, please follow the documentation here: [Deploy and Customize AMD Solution Blueprints](https://rocm.blogs.amd.com/artificial-intelligence/custom-blueprint/README.html)
